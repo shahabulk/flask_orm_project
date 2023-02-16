@@ -1,7 +1,7 @@
 from flask import Flask, jsonify
 import psycopg2 
-from api.lib.db import conn, build_from_record, find
-from api.models.movie import Movie
+from backend.api.lib.db import conn, build_from_record, find
+from backend.api.models.movie import Movie
 
 
 
