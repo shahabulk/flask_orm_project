@@ -1,7 +1,9 @@
-from api.lib.db import * 
-from api.models.movie import *
+from backend.api.lib.db import * 
+from backend.api.models.movie import *
+
 from flask import jsonify
-class Actor(): 
+
+class Actor: 
     columns = ['id', 'name']
     __table__ = 'actors'
 

@@ -1,8 +1,8 @@
-from api.models.Actor import Actor
-from api.models.movie import Movie
-from api.models.movieactor import MovieActor
+from backend.api.models.actor import Actor
+from backend.api.models.movie import Movie
+from backend.api.models.movieactor import MovieActor
 import pytest
-from api.lib.db import save, test_conn, test_cursor, drop_all_tables
+from backend.api.lib.db import save, test_conn, test_cursor, drop_all_tables
 
 @pytest.fixture()
 def actor():    

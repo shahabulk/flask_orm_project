@@ -1,14 +1,35 @@
 from flask import Flask, jsonify
 import psycopg2 
-from lib.db import conn
-app = Flask()
-app.config.from_mapping()
+from backend.api.lib.db import conn, build_from_record, find
+from backend.api.models.movie import Movie
 
-@app.route('/')
-def home():
-    return 'silliness'
 
-@app.route('/movies')
-def movies():
-    cursor = conn.cursor()
-def create_app(db_name, username, password):
+
+def create_app(db_name, user):
+    app = Flask(__name__)
+
+    @app.route('/')
+    def home():
+        return 'silliness'
+
+    @app.route('/movies')
+    def movies():
+        conn = psycopg2.connect(dbname = db_name, user = user)
+        cursor = conn.cursor()
+        cursor.execute('select * from movies;')
+        movies = cursor.fetchall()
+        return jsonify(movies)
+    
+    @app.route('/movies/<id>')
+    def movie(id):
+        conn = psycopg2.connect(dbname = db_name, user = user)
+        cursor = conn.cursor()
+        movie = find(Movie, id, conn)
+        # cursor.execute('select * from movies where movies.id = %s;', (id,))
+        # movie_record = cursor.fetchone()
+        # movie = build_from_record(Movie, movie_record)
+        return jsonify(movie.__dict__)
+
+    
+
+    return app
