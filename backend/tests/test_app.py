@@ -3,7 +3,9 @@ from flask import json
 from api import create_app
 from api.lib.db import (get_db, close_db, drop_all_tables,
  save, test_conn, test_cursor)
-from api.models import Movie, Actor, MovieActor
+from api.models.movie import * 
+from api.models.Actor import * 
+from api.models.movieactor import *
 from tests.models.test_actor import actor
 
 @pytest.fixture(scope = 'module')
