@@ -1,5 +1,5 @@
-from api import create_app
+from api.blingblong import create_app
 
-app = create_app('imdb_development', 'postgres')
+app = create_app(dbname ='imdb_development', user = 'postgres', password = 'postgres')
 
 app.run(debug = True)

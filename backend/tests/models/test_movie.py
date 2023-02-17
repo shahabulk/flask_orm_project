@@ -1,9 +1,9 @@
 # import sys
 # sys.path.insert(0, 'C:/Users/shaha/Documents/jigsaw/flask-orm-lab/backend/api/models')
-from backend.api.models.movie import Movie
-from backend.api.models.actor import Actor
-from backend.api.models.movieactor import MovieActor
-from backend.api.lib.db import save, test_conn, drop_all_tables, test_cursor
+from api.models.movie import Movie
+from api.models.actor import Actor
+from api.models.movieactor import MovieActor
+from api.lib.db import save, test_conn, drop_all_tables, test_cursor
 import pytest 
  
 @pytest.fixture()
