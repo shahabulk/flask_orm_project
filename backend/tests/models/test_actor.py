@@ -1,4 +1,4 @@
-from api.models.actor import Actor
+from backend.api.models.actor import Actor
 from api.models.movie import Movie
 from api.models.movieactor import MovieActor
 import pytest

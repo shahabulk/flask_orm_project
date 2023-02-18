@@ -1,6 +1,8 @@
 from flask import jsonify
-from api.lib.db import * 
-from api.models.movie import * 
+from api.lib.db import *
+from api.models import movie
+# from backend.api.models.movie import Movie 
+# from  ..models.movie import Movie
 
 
 class Actor: 
@@ -18,11 +20,11 @@ class Actor:
         cursor = conn.cursor()
         cursor.execute('select * from movies join movie_actors on movie_actors.movie_id = movies.id join actors on actors.id = movie_actors.actor_id where actors.id = %s', (self.id, ))
         movie_records = cursor.fetchall()
-        return build_from_records(Movie, movie_records) 
+        # return None
+        return build_from_records(movie.Movie, movie_records) 
 
     def to_json(self, conn): 
-        actor_dict = self.__dict__
+        actor_json = self.__dict__
         movies = self.movies(conn)
-        actor_dict['name'] = self.name 
-
-        return actor_dict 
+        actor_json['movies'] = [movie.__dict__ for movie in movies]
+        return actor_json
