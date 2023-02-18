@@ -1,16 +1,18 @@
 from flask import current_app
 from flask import g
 import psycopg2
-from backend.settings import DB_USER, DB_NAME, TEST_DB_NAME, TEST_DB_USER 
+from api.lib.settings import DB_USER, DB_NAME, TEST_DB_NAME, TEST_DB_USER, DB_PASSWORD, TEST_DB_PASSWORD
+# import backend.settings as settings
 
 test_conn = psycopg2.connect(dbname = TEST_DB_NAME,
-        user = TEST_DB_USER)
+        user = TEST_DB_USER, password = TEST_DB_PASSWORD)
 test_cursor = test_conn.cursor()
 
 conn = psycopg2.connect(dbname = DB_NAME,
-        user = DB_USER)
+        user = DB_USER, password = DB_PASSWORD)
 
 def get_db():
+    # breakpoint()
     if "db" not in g:
         g.db = psycopg2.connect(user = current_app.config['DB_USER'],
                 password = current_app.config['DB_PASSWORD'],

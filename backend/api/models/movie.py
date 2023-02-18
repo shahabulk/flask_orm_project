@@ -1,7 +1,8 @@
 import datetime 
 from flask import jsonify
-from backend.api.lib.db import *
-from backend.api.models.actor import *
+from api.lib.db import *
+import json
+from api.models.actor import Actor
 class Movie:
     columns = ['id', 'title', 'studio', 'runtime', 'description', 'release_date', 'year']
 
@@ -23,14 +24,12 @@ class Movie:
         actors_records = cursor.fetchall()
         return build_from_records(Actor, actors_records)
 
-    def to_json(self): 
-        movie_dict = self.__dict__
+    def to_json(self, conn):
+        movie_json = self.__dict__
         actors = self.actors(conn)
-        movie_dict['actors'] = actors 
-
-        return movie_dict 
+        movie_json['actors'] = [actor.__dict__ for actor in actors]
+        return movie_json
+         
  
 
 
-def ballsack():
-    return 'ballsack'
