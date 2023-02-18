@@ -24,7 +24,7 @@ class Movie:
         actors_records = cursor.fetchall()
         return build_from_records(Actor, actors_records)
 
-    def to_json(self):
+    def to_json(self, conn):
         movie_json = self.__dict__
         actors = self.actors(conn)
         movie_json['actors'] = [actor.__dict__ for actor in actors]

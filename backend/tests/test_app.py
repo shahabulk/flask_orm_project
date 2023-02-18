@@ -14,7 +14,7 @@ from api.lib.settings import *
 def app():
     
     flask_app = create_app(TEST_DB_NAME, TEST_DB_USER, TEST_DB_PASSWORD, False)
-    
+
     with flask_app.app_context(): 
         # breakpoint()
         current_app.config['TEST_DB_USER'] = TEST_DB_USER
@@ -24,7 +24,7 @@ def app():
                                 password = current_app.config['TEST_DB_PASSWORD'],
                                 dbname = current_app.config['TEST_DB_NAME'])
         cursor = conn.cursor()
-        # drop_all_tables(conn, cursor)
+        drop_all_tables(conn, cursor)
         build_records(conn, cursor), 
 
         # conn.commit()
@@ -40,7 +40,7 @@ def app():
                                 password = current_app.config['TEST_DB_PASSWORD'],
                                 dbname = current_app.config['TEST_DB_NAME'])
         cursor = conn.cursor()
-        drop_all_tables(conn, cursor)
+        # drop_all_tables(conn, cursor)
         
         close_db()
 
@@ -125,9 +125,10 @@ def test_actors_show_displays_related_movies(app, client):
 def test_movies_show_displays_related_actors(app, client):
     test_cursor.execute('SELECT id FROM movies where title = %s;', ('Shawshank',))
     id = test_cursor.fetchone()[0]
-    
+    print(id, 'this is the id') 
     response = client.get(f'/movies/{id}')
     movie_json = json.loads(response.data)
+    print([actor['name'] for actor in movie_json['actors']])
     assert [actor['name'] for actor in movie_json['actors']] == ['Tim Robbins', 'Morgan Freeman']
 
 def test_movies_index_displays_related_actors(app, client):

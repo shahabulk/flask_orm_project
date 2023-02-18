@@ -46,6 +46,6 @@ def test_actors_method_finds_associated_actors(movie):
     assert set(actor_names) == set(['Tim Robbins', 'Morgan Freeman'])
 
 def test_to_json_returns_actors_in_movie(movie):
-    movie_json = movie.to_json()
+    movie_json = movie.to_json(test_conn)
     assert movie_json['title'] == 'shawshank'
     # assert set([actor['name'] for actor in movie_json['actors']]) == set(['Morgan Freeman', 'Tim Robbins'])
